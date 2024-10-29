@@ -1,0 +1,3 @@
+import com.dantariun.demoApp.configureComposeAndroid
+
+configureComposeAndroid()
