@@ -25,23 +25,8 @@ class AdminViewModel @Inject constructor(
     private val adminDeleteUseCase: AdminDeleteUseCase
 ) : ViewModel() {
 
-
-//    private val _userEmail = mutableStateOf(emptyList())
-//    val userEmail : StateFlow<List<User>> = _userEmail
-
-//    private val _users = mutableStateOf(emptyList<User>())
-
     private val _users:MutableStateFlow<List<User>> = MutableStateFlow(emptyList())
     val users:StateFlow<List<User>> = _users
-
-//    private val userIndex : MutableStateFlow<Int> = MutableStateFlow(0)
-//    val userList:StateFlow<List<User>> = userIndex.flatMapLatest {
-//        adminUseCase()
-//    }.stateIn(
-//        scope = viewModelScope,
-//        started = SharingStarted.WhileSubscribed(5000),
-//        initialValue = emptyList()
-//    )
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -50,7 +35,7 @@ class AdminViewModel @Inject constructor(
         when(event) {
             is AdminEvent.DeleteUser -> {
                 viewModelScope.launch {
-                    val response = adminDeleteUseCase(event.value)
+                    adminDeleteUseCase(event.value)
                     _eventFlow.emit(UiEvent.Delete)
                 }
             }
